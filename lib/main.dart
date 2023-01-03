@@ -58,7 +58,7 @@ class _RootPageState extends State<RootPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fitness_center),
-            label: 'Sets',
+            label: 'Workouts',
           ),
         ],
         currentIndex: currentPage,
