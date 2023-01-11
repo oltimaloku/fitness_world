@@ -1,5 +1,5 @@
-import 'package:fitness_app/home_screen.dart';
-import 'package:fitness_app/sets_screen.dart';
+import 'package:fitness_app/screens/home_screen.dart';
+import 'package:fitness_app/screens/workouts_screen.dart';
 import 'package:fitness_app/settings_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const RootPage(),
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 21, 54, 95),
         colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Color.fromARGB(255, 0, 34, 147),
+            primary: const Color.fromARGB(255, 28, 72, 126),
             secondary: const Color.fromARGB(255, 1, 57, 95)),
       ),
     );
@@ -39,6 +40,7 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 21, 54, 95),
       body: PageView(
           controller: pageController,
           children: const [HomeScreen(), SetsScreen()],
@@ -47,26 +49,31 @@ class _RootPageState extends State<RootPage> {
               currentPage = index;
             });
           }),
-      appBar: AppBar(
-        title: const Text('Fitness World'),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      bottomNavigationBar: Container(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Workouts',
+          child: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.fitness_center),
+                label: 'Workouts',
+              ),
+            ],
+            currentIndex: currentPage,
+            onTap: (int index) {
+              setState(() {
+                pageController.jumpToPage(index);
+              });
+            },
           ),
-        ],
-        currentIndex: currentPage,
-        onTap: (int index) {
-          setState(() {
-            pageController.jumpToPage(index);
-          });
-        },
+        ),
       ),
     );
   }
