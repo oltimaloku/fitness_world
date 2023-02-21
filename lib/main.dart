@@ -1,9 +1,16 @@
+import 'package:fitness_app/screens/calendar_screen.dart';
 import 'package:fitness_app/screens/home_screen.dart';
 import 'package:fitness_app/screens/workouts_screen.dart';
 import 'package:fitness_app/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  // init the hive
+  await Hive.initFlutter();
+
+  //
+
   runApp(const MyApp());
 }
 
@@ -43,7 +50,7 @@ class _RootPageState extends State<RootPage> {
       backgroundColor: const Color.fromARGB(255, 21, 54, 95),
       body: PageView(
           controller: pageController,
-          children: const [HomeScreen(), SetsScreen()],
+          children: const [HomeScreen(), SetsScreen(), CalendarScreen()],
           onPageChanged: (int index) {
             setState(() {
               currentPage = index;
@@ -64,6 +71,10 @@ class _RootPageState extends State<RootPage> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.fitness_center),
                 label: 'Workouts',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month_outlined),
+                label: 'Calendar',
               ),
             ],
             currentIndex: currentPage,
